@@ -4,8 +4,6 @@ import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,14 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import ar.unrn.tp3.modelo.NombreParticipante;
 import ar.unrn.tp3.modelo.Participante;
-import ar.unrn.tp3.modelo.RegionParticipante;
 import ar.unrn.tp3.modelo.RepositorioDeParticipantes;
-import ar.unrn.tp3.modelo.TelefonoParticipante;
 
 public class UI extends JFrame {
-	private Connection dbConn;
+
 	private JTextField nombre;
 	private JTextField telefono;
 	private JTextField region;
@@ -30,11 +25,10 @@ public class UI extends JFrame {
 
 	public UI(RepositorioDeParticipantes repositorio) {
 		this.repositorio = repositorio;
-
 	}
 
-	public void setupUIComponents() throws SQLException, ClassNotFoundException {
-		repositorio.setupBaseDeDatos();
+	public void setupUIComponents() {
+
 		setTitle("Add Participant");
 		setSize(400, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +37,7 @@ public class UI extends JFrame {
 		this.region = new JTextField(10);
 		this.nombre.setText("");
 		this.telefono.setText("");
-		this.region.setText("China");
+		this.region.setText("");
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new FlowLayout());
@@ -56,19 +50,11 @@ public class UI extends JFrame {
 		JButton botonCargar = new JButton("Cargar");
 		botonCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					NombreParticipante nom = new NombreParticipante(nombre.getText());
-					TelefonoParticipante tel = new TelefonoParticipante(telefono.getText());
-					RegionParticipante rp = new RegionParticipante(region.getText());
-					if (rp.obtenerRegion() != null) {
-						Participante participante = new Participante(nom.obtenerNombre(), tel.obtenerTelefono(),
-								rp.obtenerRegion());
-						repositorio.cargarPacticipante(participante);
-					}
-					setVisible(false);
-				} catch (SQLException e1) {
-					throw new RuntimeException(e1);
+				Participante participante = new Participante(nombre.getText(), telefono.getText(), region.getText());
+				if (participante.obtenerRegion() != null) {
+					repositorio.cargarPacticipante(participante);
 				}
+				setVisible(false);
 			}
 		});
 		contentPane.add(botonCargar);

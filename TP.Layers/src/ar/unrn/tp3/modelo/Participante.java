@@ -6,10 +6,19 @@ public class Participante {
 	private String telefono;
 	private String region;
 
+	private NombreParticipante np;
+	private TelefonoParticipante tp;
+	private RegionParticipante rp;
+
 	public Participante(String nombre, String telefono, String region) {
+		NombreParticipante nom = new NombreParticipante(nombre);
 		this.nombre = nombre;
+		TelefonoParticipante tel = new TelefonoParticipante(telefono);
 		this.telefono = telefono;
-		this.region = region;
+		RegionParticipante rp = new RegionParticipante(region);
+		if (rp.obtenerRegion() != null) {
+			this.region = region;
+		}
 	}
 
 	public String obtenerNombre() {
