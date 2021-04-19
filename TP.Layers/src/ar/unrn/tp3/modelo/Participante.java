@@ -2,47 +2,26 @@ package ar.unrn.tp3.modelo;
 
 public class Participante {
 
-	private String nombre;
-	private String telefono;
-	private String region;
-
-	private NombreParticipante np;
-	private TelefonoParticipante tp;
-	private RegionParticipante rp;
+	private NombreParticipante nombreP;
+	private TelefonoParticipante telefonoP;
+	private RegionParticipante regionP;
 
 	public Participante(String nombre, String telefono, String region) {
-		NombreParticipante nom = new NombreParticipante(nombre);
-		this.nombre = nombre;
-		TelefonoParticipante tel = new TelefonoParticipante(telefono);
-		this.telefono = telefono;
-		RegionParticipante rp = new RegionParticipante(region);
-		if (rp.obtenerRegion() != null) {
-			this.region = region;
-		}
+		nombreP = new NombreParticipante(nombre);
+		telefonoP = new TelefonoParticipante(telefono);
+		regionP = new RegionParticipante(region);
 	}
 
 	public String obtenerNombre() {
-		return this.nombre;
+		return this.nombreP.obtenerNombre();
 	}
 
 	public String obtenerTelefono() {
-		return this.telefono;
+		return this.telefonoP.obtenerTelefono();
 	}
 
 	public String obtenerRegion() {
-		return this.region;
-	}
-
-	public void asignarNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public void asignarTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public void asignarRegion(String region) {
-		this.region = region;
+		return this.regionP.obtenerRegion();
 	}
 
 }

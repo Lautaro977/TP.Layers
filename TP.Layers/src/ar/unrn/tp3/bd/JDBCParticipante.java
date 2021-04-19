@@ -10,7 +10,7 @@ import ar.unrn.tp3.modelo.RepositorioDeParticipantes;
 
 public class JDBCParticipante implements RepositorioDeParticipantes {
 
-	public Connection setupBaseDeDatos() {
+	private Connection setupBaseDeDatos() {
 		try {
 			String url = "jdbc:mysql://localhost:3306/participantes";
 			String user = "root";
