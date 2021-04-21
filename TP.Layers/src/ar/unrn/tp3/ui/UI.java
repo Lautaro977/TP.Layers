@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -50,9 +51,13 @@ public class UI extends JFrame {
 		JButton botonCargar = new JButton("Cargar");
 		botonCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Participante participante = new Participante(nombre.getText(), telefono.getText(), region.getText());
-				if (participante.obtenerRegion() != null) {
+				try {
+					Participante participante = new Participante(nombre.getText(), telefono.getText(),
+							region.getText());
 					repositorio.cargarPacticipante(participante);
+				} catch (RuntimeException ex) {
+					JOptionPane.showMessageDialog(null, ex, "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 				setVisible(false);
 			}

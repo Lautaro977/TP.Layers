@@ -19,7 +19,7 @@ public class JDBCParticipante implements RepositorioDeParticipantes {
 			Connection con = DriverManager.getConnection(url, user, password);
 			return con;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("No se pudo Conectar con la Base de Datos");
 		}
 	}
 
@@ -35,7 +35,7 @@ public class JDBCParticipante implements RepositorioDeParticipantes {
 			st.close();
 
 		} catch (SQLException ex) {
-			throw new RuntimeException(ex);
+			throw new RuntimeException("No se pudo guardar la Parsona");
 		}
 	}
 
