@@ -10,9 +10,8 @@ public class TelefonoParticipante {
 		}
 		if (!validarTelefono(telefono)) {
 			throw new RuntimeException("El teléfono debe ingresarse de la siguiente forma: NNNN-NNNNNN");
-		} else {
-			this.telefono = telefono;
 		}
+		this.telefono = telefono;
 
 	}
 
