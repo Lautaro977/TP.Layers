@@ -31,4 +31,11 @@ public class Empleado {
 		return this.email.obtenerEmail();
 	}
 
+	public boolean esTuCumpleaños(String cumple) {
+		if (this.fechaNacimiento.obtenerFecha().contains(cumple)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

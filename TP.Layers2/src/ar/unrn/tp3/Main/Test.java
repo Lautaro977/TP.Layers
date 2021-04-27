@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import ar.unrn.tp3.Libreria.EnviarCorreoElectronico;
 import ar.unrn.tp3.Persistencia.EnDiscoRegistroEmpleado;
@@ -41,15 +42,15 @@ class Test {
 		regEmp.guardarEmpleado(empleado1);
 		regEmp.guardarEmpleado(empleado2);
 
-		assertTrue(regEmp.obtenerEmpleados()
-				.contains("Lapuente," + "Alexis," + LocalDate.of(1997, 04, 22) + "," + "Alexis77@gmail.com"));
+		assertTrue(regEmp.existeEmpleado(empleado2));
 
 	}
 
 	@org.junit.jupiter.api.Test
 	public void testRecuperarEmpleado() {
 		RegistrarEmpleado regEmp = new EnDiscoRegistroEmpleado();
-		String ListaEmpleados = regEmp.obtenerEmpleados();
+		// esta bien? el List<Empleado>
+		List<Empleado> ListaEmpleados = regEmp.obtenerEmpleados();
 		assertNotNull(ListaEmpleados);
 	}
 
