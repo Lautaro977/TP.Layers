@@ -15,12 +15,14 @@ public class FelizCumpleaños {
 
 	public void enviarFelicitaciones() {
 
+		// Los Empleados ya fueron cargados previamente en el Archivo de los Empleados
+
 		LocalDate fechaHoy = LocalDate.now();
 		List<Empleado> ListaEmpleado = regEmp.obtenerEmpleados();
 
 		for (Empleado emp : ListaEmpleado) {
 			if (emp.esTuCumpleaños(fechaHoy.getMonthValue() + "-" + fechaHoy.getDayOfMonth())) {
-				enviarEmail.enviar(emp.obtenerEmail(), "Feliz Cumpleaños,", "Hola que pases un buen dia Cumpleañero");
+				enviarEmail.enviar(emp.obtenerEmail(), "Feliz Cumpleaños", "Hola que pases un buen dia Cumpleañero");
 				System.out.println("Se envio Felicitaciones a " + emp.obtenerApellido() + " " + emp.obtenerNombre());
 			}
 		}

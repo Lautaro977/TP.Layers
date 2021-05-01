@@ -8,16 +8,17 @@ import java.time.LocalDate;
 import java.util.List;
 
 import ar.unrn.tp3.Libreria.EnviarCorreoElectronico;
-import ar.unrn.tp3.Persistencia.EnDiscoRegistroEmpleado;
+import ar.unrn.tp3.Persistencia.RegistrarEnMemoria;
 import ar.unrn.tp3.modelo.Empleado;
 import ar.unrn.tp3.modelo.EnviarEmail;
+import ar.unrn.tp3.modelo.FelizCumpleaños;
 import ar.unrn.tp3.modelo.RegistrarEmpleado;
 
 class Test {
 
 	@org.junit.jupiter.api.Test
 	public void testCrearEmpleado() {
-		LocalDate fecha2 = LocalDate.of(1997, 4, 22);
+		LocalDate fecha2 = LocalDate.of(1997, 4, 30);
 		assertDoesNotThrow(() -> new Empleado("Lapuente", "Alexis", fecha2.toString(), "Alexis77@gmail.com"));
 
 	}
@@ -25,10 +26,10 @@ class Test {
 	@org.junit.jupiter.api.Test
 	public void testExisteEmpleado() {
 
-		RegistrarEmpleado regEmp = new EnDiscoRegistroEmpleado();
+		RegistrarEmpleado regEmp = new RegistrarEnMemoria();
 
 		LocalDate fecha1 = LocalDate.of(1997, 12, 9);
-		LocalDate fecha2 = LocalDate.of(1997, 04, 22);
+		LocalDate fecha2 = LocalDate.of(1997, 04, 30);
 
 		Empleado empleado1 = null;
 		Empleado empleado2 = null;
@@ -48,17 +49,45 @@ class Test {
 
 	@org.junit.jupiter.api.Test
 	public void testRecuperarEmpleado() {
-		RegistrarEmpleado regEmp = new EnDiscoRegistroEmpleado();
-		// esta bien? el List<Empleado>
+		RegistrarEmpleado regEmp = new RegistrarEnMemoria();
+
 		List<Empleado> ListaEmpleados = regEmp.obtenerEmpleados();
 		assertNotNull(ListaEmpleados);
 	}
 
 	@org.junit.jupiter.api.Test
 	public void testEnvioEmail() {
+		RegistrarEmpleado regEmp = new RegistrarEnMemoria();
 		EnviarEmail enviarEmail = new EnviarCorreoElectronico();
-		assertDoesNotThrow(
-				() -> enviarEmail.enviar("Lapuente Alexis", "Feliz Cumpleaños,", "Hola que pases un buen dia Alexis"));
+		LocalDate fecha1 = LocalDate.of(1997, 04, 30);
+		try {
+			Empleado empleado = new Empleado("Lapuente", "Alexis", fecha1.toString(), "Alexis77@gmail.com");
+			regEmp.guardarEmpleado(empleado);
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		enviarEmail.enviar("Lapuente Alexis", "Feliz Cumpleaños,", "Hola que pases un buen dia Alexis");
+		assertTrue(enviarEmail.existeEmail("Lapuente Alexis"));
+
+	}
+
+	@org.junit.jupiter.api.Test
+	public void testExisteEmailEnviado() {
+		RegistrarEmpleado regEmp = new RegistrarEnMemoria();
+		EnviarEmail enviarEmail = new EnviarCorreoElectronico();
+		LocalDate fecha1 = LocalDate.of(1997, 04, 30);
+		try {
+			Empleado empleado = new Empleado("Lapuente", "Alexis", fecha1.toString(), "Alexis77@gmail.com");
+			regEmp.guardarEmpleado(empleado);
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+
+		FelizCumpleaños fc = new FelizCumpleaños(regEmp, enviarEmail);
+
+		fc.enviarFelicitaciones();
+
+		assertTrue(enviarEmail.existeEmail("Alexis77@gmail.com"));
 
 	}
 

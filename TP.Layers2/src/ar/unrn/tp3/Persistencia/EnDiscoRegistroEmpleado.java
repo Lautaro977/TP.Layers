@@ -13,13 +13,18 @@ import ar.unrn.tp3.modelo.RegistrarEmpleado;
 
 public class EnDiscoRegistroEmpleado implements RegistrarEmpleado {
 
+	private String ubicacion;
+
+	public EnDiscoRegistroEmpleado(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
 	@Override
 	public void guardarEmpleado(Empleado emp) {
 		String empleado = emp.obtenerApellido() + "," + emp.obtenerNombre() + "," + emp.obtenerFecha() + ","
 				+ emp.obtenerEmail() + "\n";
 		try {
-			Files.write(Paths.get("C:\\Users\\lauta\\Desktop\\Archivos Tipo Documento de POO 2\\Archivo Layers2.txt"),
-					empleado.getBytes(), StandardOpenOption.APPEND);
+			Files.write(Paths.get(this.ubicacion), empleado.getBytes(), StandardOpenOption.APPEND);
 
 		} catch (IOException e) {
 			throw new RuntimeException("No se pudo persistir...", e);
@@ -33,8 +38,7 @@ public class EnDiscoRegistroEmpleado implements RegistrarEmpleado {
 		List<String> contenido;
 		try {
 
-			contenido = Files.readAllLines(
-					Paths.get("C:\\Users\\lauta\\Desktop\\Archivos Tipo Documento de POO 2\\Archivo Layers2.txt"));
+			contenido = Files.readAllLines(Paths.get(this.ubicacion));
 
 			for (String emp : contenido) {
 				String[] contenidoSplit = emp.split(",");

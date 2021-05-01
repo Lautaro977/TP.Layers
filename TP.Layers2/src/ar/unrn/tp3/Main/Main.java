@@ -8,7 +8,10 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		FelizCumpleaños fc = new FelizCumpleaños(new EnDiscoRegistroEmpleado(), new EnviarCorreoElectronico());
+		FelizCumpleaños fc = new FelizCumpleaños(
+				new EnDiscoRegistroEmpleado(
+						"C:\\Users\\lauta\\Desktop\\Archivos Tipo Documento de POO 2\\Archivo Layers2.txt"),
+				new EnviarCorreoElectronico());
 		fc.enviarFelicitaciones();
 	}
 
