@@ -56,22 +56,6 @@ class Test {
 	}
 
 	@org.junit.jupiter.api.Test
-	public void testEnvioEmail() {
-		RegistrarEmpleado regEmp = new RegistrarEnMemoria();
-		EnviarEmail enviarEmail = new EnviarCorreoElectronico();
-		LocalDate fecha1 = LocalDate.of(1997, 04, 30);
-		try {
-			Empleado empleado = new Empleado("Lapuente", "Alexis", fecha1.toString(), "Alexis77@gmail.com");
-			regEmp.guardarEmpleado(empleado);
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
-		}
-		enviarEmail.enviar("Lapuente Alexis", "Feliz Cumpleaños,", "Hola que pases un buen dia Alexis");
-		assertTrue(enviarEmail.existeEmail("Lapuente Alexis"));
-
-	}
-
-	@org.junit.jupiter.api.Test
 	public void testExisteEmailEnviado() {
 		RegistrarEmpleado regEmp = new RegistrarEnMemoria();
 		EnviarEmail enviarEmail = new EnviarCorreoElectronico();
